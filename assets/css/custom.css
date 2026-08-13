@@ -1,7 +1,6 @@
 /* ==========================================================================
    La Vineria - CSS custom
-   Solo quello che i blocchi core non coprono: sticky header, hover, CTA
-   mobile fissa, righe orari.
+   Il file del tema: sticky header, hover, CTA mobile fissa, righe orari.
    ========================================================================== */
 
 /* --- Intestazione appiccicata ------------------------------------------- */
@@ -16,7 +15,9 @@
 	transition: box-shadow 0.25s ease;
 }
 
-.lv-header:hover {
+/* L'ombra segue lo scroll, non il mouse: e' uno stato della pagina, e
+   l'header non e' un controllo da illuminare al passaggio. */
+.lv-header.is-scrolled {
 	box-shadow: var(--wp--preset--shadow--soft);
 }
 
@@ -28,28 +29,6 @@
 .lv-brand {
 	gap: 0 !important;
 	line-height: 1.1;
-}
-
-/* --- Occhiello (eyebrow) ------------------------------------------------- */
-.lv-eyebrow {
-	text-transform: uppercase;
-	letter-spacing: 0.16em;
-	font-weight: 700;
-	font-size: 0.75rem;
-	margin: 0 0 0.75rem;
-}
-
-/* --- Niente fasce crema fra le sezioni ----------------------------------- */
-/* Ogni sezione ha gia' il suo padding: il blockGap fra i blocchi di primo
-   livello lasciava strisce di sfondo sopra e sotto l'hero. */
-.wp-site-blocks {
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
-.wp-site-blocks > * + *,
-main.wp-block-group > * + * {
-	margin-block-start: 0;
 }
 
 /* --- Hero ---------------------------------------------------------------- */
@@ -84,17 +63,18 @@ main.wp-block-group > * + * {
 	transform: translateY(-2px);
 }
 
-.lv-btn-secondary > .wp-block-button__link:hover {
-	background-color: var(--wp--preset--color--accent-2) !important;
-	color: var(--wp--preset--color--contrast) !important;
+/* La terza azione non e' un bottone: e' un link, e si vede. */
+.lv-hero-link {
+	margin: var(--wp--preset--spacing--40) 0 0;
+	font-size: 1rem;
 }
 
-/* La terza azione non e' un bottone: e' un link, e si vede. */
 .lv-hero-link a {
+	display: inline-block;
+	padding-block: 0.6rem;
 	color: var(--wp--preset--color--accent-4);
 	text-decoration: none;
 	border-bottom: 1px solid rgba(233, 220, 197, 0.45);
-	padding-bottom: 2px;
 	font-weight: 600;
 	transition: color 0.2s ease, border-color 0.2s ease;
 }
@@ -108,23 +88,10 @@ main.wp-block-group > * + * {
 	border-bottom-color: var(--wp--preset--color--accent-2);
 }
 
-.lv-hero h1 {
-	text-wrap: balance;
-}
-
-.lv-hero p {
-	text-wrap: pretty;
-}
-
 /* La foto ha zone chiare: l'ombra tiene il testo leggibile ovunque cada il crop. */
 .lv-hero h1,
 .lv-hero p {
 	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* L'occhiello e' piccolo e oro: sopra le bottiglie chiare serve piu' stacco. */
-.lv-hero .lv-eyebrow {
-	text-shadow: 0 1px 5px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.7);
 }
 
 @media (max-width: 781px) {
@@ -132,9 +99,8 @@ main.wp-block-group > * + * {
 		min-height: min(78svh, 700px);
 	}
 
-	/* Su schermo stretto i due bottoni stanno su una riga: a tutta larghezza
-	   e alti 56px sopra l'hero pesavano piu' del titolo. I due testi
-	   ("Chiama" e "Scrivici su WhatsApp") entrano in 343px con i margini. */
+	/* I due bottoni si dimensionano sul testo e stanno su una riga; sotto i
+	   340px vanno a capo restando comunque dimensionati sul contenuto. */
 	.lv-hero .wp-block-buttons {
 		flex-direction: row;
 		align-items: center;
@@ -144,9 +110,10 @@ main.wp-block-group > * + * {
 		width: auto;
 	}
 
+	/* 43px era sotto la soglia di tocco, sul pulsante che deve convertire. */
 	.lv-hero .wp-block-button__link {
-		padding: 0.7rem 1.1rem;
-		font-size: 0.9375rem;
+		padding: 0.85rem 1.2rem;
+		font-size: 1rem;
 		line-height: 1.4;
 		text-align: center;
 	}
@@ -157,25 +124,23 @@ main.wp-block-group > * + * {
 }
 
 /* --- Schede offerta ------------------------------------------------------ */
+/* Nessun sollevamento all'hover: le schede non sono cliccabili, e fingere
+   che lo siano e' una promessa che il click non mantiene. */
 .lv-card {
-	transition: transform 0.25s ease, box-shadow 0.25s ease;
 	height: 100%;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	border-radius: 6px;
+	box-shadow: var(--wp--preset--shadow--soft);
 }
 
 .lv-card > figure {
 	margin: 0;
 }
 
-.lv-card > .wp-block-group {
+.lv-card > .lv-card-body {
 	flex: 1 1 auto;
-}
-
-.lv-card:hover {
-	transform: translateY(-4px);
-	box-shadow: var(--wp--preset--shadow--lift);
 }
 
 .lv-card img {
@@ -198,14 +163,9 @@ main.wp-block-group > * + * {
 }
 
 /* --- Galleria ------------------------------------------------------------ */
+/* Le foto non si aprono: niente zoom all'hover, che suggerirebbe il contrario. */
 .lv-gallery img {
-	transition: transform 0.5s ease, filter 0.35s ease;
-	filter: saturate(0.94);
-}
-
-.lv-gallery figure:hover img {
-	transform: scale(1.04);
-	filter: saturate(1.06);
+	filter: saturate(0.96);
 }
 
 /* --- Orari --------------------------------------------------------------- */
@@ -266,10 +226,6 @@ main.wp-block-group > * + * {
 	fill: currentColor;
 }
 
-.lv-dock .wp-social-link:hover {
-	background-color: var(--wp--preset--color--accent-1) !important;
-}
-
 .lv-dock .wp-social-link a {
 	width: 100%;
 	height: 100%;
@@ -280,6 +236,7 @@ main.wp-block-group > * + * {
 }
 
 .lv-dock .wp-social-link:hover {
+	background-color: var(--wp--preset--color--accent-1) !important;
 	transform: translateY(-3px);
 	box-shadow: 0 0 0 1px var(--wp--preset--color--accent-2), 0 10px 26px rgba(31, 26, 23, 0.42);
 }
@@ -358,7 +315,7 @@ main.wp-block-group > * + * {
 
 /* --- Header a tre zone: marchio, menu al centro, CTA a destra ------------ */
 @media (min-width: 782px) {
-	/* Il layout flex di core va scavalcato: serve la griglia per tenere il
+	/* Il layout flex di base va scavalcato: serve la griglia per tenere il
 	   menu centrato sulla pagina e non fra i due blocchi laterali. */
 	.lv-header-inner {
 		display: grid !important;
@@ -381,6 +338,14 @@ main.wp-block-group > * + * {
 @media (max-width: 781px) {
 	.lv-header-cta {
 		display: none !important;
+	}
+}
+
+/* Su privacy.html non c'e' hamburger: nascondere anche il CTA lasciava la
+   pagina senza nessuna via di ritorno sotto i 782px. */
+@media (max-width: 781px) {
+	.lv-header-inner-plain .lv-header-cta {
+		display: flex !important;
 	}
 }
 
@@ -411,14 +376,13 @@ main.wp-block-group > * + * {
 	height: 26px;
 }
 
-/* Core passa a hamburger sotto i 600px: lo allineiamo al breakpoint del sito
-   (781px), cosi' menu e resto del layout cambiano insieme. */
+/* Il breakpoint del menu segue quello del sito (781px), non i 600px di core. */
 @media (max-width: 781px) {
-	.lv-nav .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+	.lv-nav .wp-block-navigation__responsive-container:not(.is-menu-open) {
 		display: none;
 	}
 
-	.lv-nav .wp-block-navigation__responsive-container-open:not(.always-shown) {
+	.lv-nav .wp-block-navigation__responsive-container-open {
 		display: flex;
 	}
 }
@@ -496,25 +460,11 @@ main.wp-block-group > * + * {
 	overflow: hidden;
 }
 
-.has-modal-open .lv-mobile-cta,
-.has-modal-open ~ * .lv-mobile-cta {
+.has-modal-open .lv-mobile-cta {
 	display: none !important;
 }
 
 /* --- Dettagli ------------------------------------------------------------ */
-.lv-rule {
-	width: 56px;
-	height: 3px;
-	background: var(--wp--preset--color--accent-2);
-	border: 0;
-	opacity: 1;
-	margin-inline: 0;
-}
-
-.lv-rule.aligncenter {
-	margin-inline: auto;
-}
-
 .lv-quiet {
 	color: var(--wp--preset--color--contrast-3);
 }
@@ -525,24 +475,48 @@ html {
 }
 
 [id] {
-	scroll-margin-top: 5.5rem;
+	scroll-margin-top: 4.5rem;
 }
 
+/* Focus visibile: accessibilita' di base, non togliere.
+   L'anello solo oro misurava 2.26:1 su crema, sotto il 3:1 richiesto: il
+   bordeaux interno regge il contrasto sui fondi chiari, l'oro esterno su
+   quelli scuri. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+	outline: 3px solid var(--wp--preset--color--accent-1);
+	outline-offset: 2px;
+	box-shadow: 0 0 0 6px rgba(201, 162, 39, 0.9);
+	border-radius: 4px;
+}
+
+.lv-hero a:focus-visible,
+.lv-mobile-cta a:focus-visible,
+.lv-dock a:focus-visible,
+.lv-cover-cta a:focus-visible,
+footer a:focus-visible {
+	outline-color: var(--wp--preset--color--accent-2);
+	box-shadow: 0 0 0 6px rgba(31, 26, 23, 0.9);
+}
+
+/* Chi ha chiesto meno movimento non deve vedere nessuna traslazione. */
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;
 	}
 
-	.lv-card,
-	.lv-gallery img {
-		transition: none;
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
 	}
-}
 
-/* Focus visibile: accessibilita' di base, non togliere. */
-a:focus-visible,
-button:focus-visible {
-	outline: 3px solid var(--wp--preset--color--accent-2);
-	outline-offset: 2px;
-	border-radius: 4px;
+	.lv-btn-primary > .wp-block-button__link:hover,
+	.lv-btn-secondary > .wp-block-button__link:hover,
+	.lv-dock .wp-social-link:hover {
+		transform: none;
+	}
 }

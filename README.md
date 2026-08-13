@@ -13,7 +13,7 @@ Landing page di **Vineria Viaventi** (Rimini), convertita dal tema WordPress
 | `privacy.html` | informativa privacy |
 | `assets/css/base.css` | variabili e stili dei blocchi, al posto di quelli che WordPress generava a runtime |
 | `assets/css/custom.css` | il file del tema: header sticky, schede, dock social, barra CTA mobile (i bottoni dell'hero su mobile sono stati rimpiccioliti qui) |
-| `assets/js/nav.js` | apertura e chiusura del menu su mobile |
+| `assets/js/nav.js` | menu mobile con focus trap, stato "aperto ora" sull'ora di Roma, ombra dell'header sullo scroll |
 | `assets/fonts/` | Vollkorn e Manrope (woff2, caricati dal sito, nessuna CDN) |
 | `assets/img/` | le 10 foto del locale |
 
