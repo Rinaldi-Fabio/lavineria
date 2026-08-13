@@ -132,20 +132,27 @@ main.wp-block-group > * + * {
 		min-height: min(78svh, 700px);
 	}
 
-	/* Su schermo stretto i tre bottoni vanno in colonna, tutti larghi uguale. */
+	/* Su schermo stretto i due bottoni stanno su una riga: a tutta larghezza
+	   e alti 56px sopra l'hero pesavano piu' del titolo. I due testi
+	   ("Chiama" e "Scrivici su WhatsApp") entrano in 343px con i margini. */
 	.lv-hero .wp-block-buttons {
-		flex-direction: column;
-		align-items: stretch;
+		flex-direction: row;
+		align-items: center;
 	}
 
 	.lv-hero .wp-block-button {
-		width: 100%;
+		width: auto;
 	}
 
 	.lv-hero .wp-block-button__link {
-		display: block;
-		width: 100%;
+		padding: 0.7rem 1.1rem;
+		font-size: 0.9375rem;
+		line-height: 1.4;
 		text-align: center;
+	}
+
+	.lv-hero-cta .wp-block-button__link {
+		min-width: 0;
 	}
 }
 
