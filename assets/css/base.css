@@ -68,8 +68,12 @@
 	--wp--preset--shadow--soft: 0 2px 4px rgba(31, 26, 23, 0.05), 0 12px 28px rgba(31, 26, 23, 0.08);
 	--wp--preset--shadow--lift: 0 4px 8px rgba(31, 26, 23, 0.07), 0 24px 48px rgba(31, 26, 23, 0.14);
 
-	--lv-content: 720px;
-	--lv-wide: 1240px;
+	--lv-content: 820px;
+	--lv-wide: 1700px;
+
+	/* Il margine laterale della pagina: stretto, cosi' il contenuto arriva
+	   vicino al bordo anche sui monitor larghi. */
+	--lv-gutter: clamp(1rem, 2.2vw, 2.5rem);
 }
 
 /* --- Base ---------------------------------------------------------------- */
@@ -285,14 +289,19 @@ a:hover {
 	color: var(--wp--preset--color--accent-5);
 }
 
+/* Il bordato eredita il testo bianco del bottone pieno: su fondo chiaro
+   sparirebbe. Il colore di default qui e' il bordeaux; i bordati che stanno
+   sopra una foto scura si tengono il loro colore inline. */
 .wp-block-button.is-style-outline .wp-block-button__link {
 	background-color: transparent;
+	color: var(--wp--preset--color--accent-1);
 	border: 1px solid currentColor;
 }
 
-.wp-block-button.is-style-outline .wp-block-button__link:hover {
-	background-color: var(--wp--preset--color--accent-5);
-	color: var(--wp--preset--color--contrast) !important;
+.wp-block-button.is-style-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-outline .wp-block-button__link:focus {
+	background-color: var(--wp--preset--color--accent-1);
+	color: var(--wp--preset--color--accent-5);
 }
 
 /* --- Titolo del sito ----------------------------------------------------- */
@@ -311,11 +320,15 @@ a:hover {
 }
 
 /* --- Galleria ------------------------------------------------------------ */
+/* Righe di altezza fissa e prima foto grande il doppio: sei ritagli uguali
+   in fila sembravano un provino, non una galleria. Con 3 colonne le sei
+   immagini riempiono esattamente tre righe, senza buchi. */
 .wp-block-gallery {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: clamp(150px, 15vw, 260px);
 	gap: var(--wp--preset--spacing--30);
-	margin: 0;
+	margin-block: 0;
 }
 
 .wp-block-gallery .wp-block-image {
@@ -324,14 +337,30 @@ a:hover {
 	border-radius: 4px;
 }
 
+.wp-block-gallery .wp-block-image:first-child {
+	grid-column: span 2;
+	grid-row: span 2;
+}
+
 .wp-block-gallery .wp-block-image img {
-	aspect-ratio: 4 / 3;
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
 }
 
 @media (max-width: 781px) {
 	.wp-block-gallery {
 		grid-template-columns: repeat(2, 1fr);
+		grid-auto-rows: clamp(120px, 32vw, 200px);
+	}
+
+	.wp-block-gallery .wp-block-image:first-child {
+		grid-row: span 1;
+	}
+
+	/* Sei foto su due colonne lasciano l'ultima spaiata: la si allarga. */
+	.wp-block-gallery .wp-block-image:last-child {
+		grid-column: span 2;
 	}
 }
 
@@ -419,7 +448,13 @@ a:hover {
 
 /* --- Sezioni ------------------------------------------------------------- */
 .lv-section {
-	padding: var(--wp--preset--spacing--70) var(--wp--preset--spacing--40);
+	padding: var(--wp--preset--spacing--70) var(--lv-gutter);
+}
+
+/* L'intestazione segue lo stesso margine delle sezioni: il bottone Chiama
+   resta in linea con il bordo del contenuto, non sospeso a meta'. */
+.lv-header {
+	padding: 0.7rem var(--lv-gutter);
 }
 
 .has-base-2-background-color { background-color: var(--wp--preset--color--base-2); }
