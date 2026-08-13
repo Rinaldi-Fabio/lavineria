@@ -263,6 +263,13 @@ a:hover {
 	margin: 0 0 1.2rem;
 }
 
+/* Il margine sotto serve solo quando segue altro testo. Nell'intestazione
+   sballava il centraggio verticale: il bottone veniva centrato insieme al
+   suo margine, quindi finiva alto. */
+.wp-block-buttons:last-child {
+	margin-bottom: 0;
+}
+
 .wp-block-buttons.is-content-justification-center {
 	justify-content: center;
 }
@@ -455,6 +462,15 @@ a:hover {
    resta in linea con il bordo del contenuto, non sospeso a meta'. */
 .lv-header {
 	padding: 0.7rem var(--lv-gutter);
+}
+
+/* Marchio e menu sulla stessa riga. Sopra i 782px custom.css sostituisce
+   questo con una griglia a tre zone. */
+.lv-header-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
 }
 
 .has-base-2-background-color { background-color: var(--wp--preset--color--base-2); }
