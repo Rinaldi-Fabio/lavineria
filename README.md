@@ -3,7 +3,7 @@
 Landing page di **Vineria Viaventi** (Rimini), convertita dal tema WordPress
 `lavineria` in HTML statico per essere pubblicata su GitHub Pages.
 
-**Sito online:** https://totorina24.github.io/lavineria/
+**Sito online:** https://rinaldi-fabio.github.io/lavineria/
 
 ## Cosa contiene
 
