@@ -23,6 +23,18 @@
 			container.classList.toggle('is-menu-open', isOpen);
 			document.documentElement.classList.toggle('has-modal-open', isOpen);
 			open.setAttribute('aria-expanded', String(isOpen));
+
+			// Solo da aperto il pannello e' una finestra modale. Lasciando
+			// aria-modal nel markup, su desktop diceva alle tecnologie
+			// assistive che il resto della pagina non esiste.
+			if (isOpen) {
+				container.setAttribute('role', 'dialog');
+				container.setAttribute('aria-modal', 'true');
+			} else {
+				container.removeAttribute('role');
+				container.removeAttribute('aria-modal');
+			}
+
 			if (isOpen) close.focus();
 			else open.focus();
 		}
@@ -74,6 +86,11 @@
 		var giorno = roma.getDay(); // 0 = domenica
 		var minuti = roma.getHours() * 60 + roma.getMinutes();
 
+		// Se la conversione di fuso non produce una data valida, i confronti
+		// cadono tutti e la riga stamperebbe "Chiuso" con sicurezza. Meglio
+		// non dire niente e lasciar rispondere la tabella qui sotto.
+		if (isNaN(minuti)) return null;
+
 		if (giorno !== 0 && minuti >= APERTURA && minuti < CHIUSURA) {
 			return { aperto: true, testo: 'Aperto ora · si chiude alle 22:00' };
 		}
@@ -86,12 +103,21 @@
 		return { aperto: false, testo: 'Chiuso · si riapre ' + quando + ' alle 7:00' };
 	}
 
-	var stato = statoApertura();
-	Array.prototype.forEach.call(document.querySelectorAll('.lv-status'), function (el) {
-		el.textContent = stato.testo;
-		el.classList.add(stato.aperto ? 'lv-status-aperto' : 'lv-status-chiuso');
-		el.hidden = false;
-	});
+	function aggiornaStato() {
+		var stato = statoApertura();
+		Array.prototype.forEach.call(document.querySelectorAll('.lv-status'), function (el) {
+			if (!stato) { el.hidden = true; return; }
+			el.textContent = stato.testo;
+			el.classList.toggle('lv-status-aperto', stato.aperto);
+			el.classList.toggle('lv-status-chiuso', !stato.aperto);
+			el.hidden = false;
+		});
+	}
+
+	aggiornaStato();
+	// Una scheda lasciata aperta alle 21:50 continuava a dire "Aperto" a
+	// mezzanotte: si ricontrolla ogni minuto.
+	setInterval(aggiornaStato, 60000);
 
 	/* --- Ombra dell'header sullo scroll ----------------------------------- */
 	var header = document.querySelector('.lv-header');

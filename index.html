@@ -46,7 +46,7 @@
 }
 </script>
 </head>
-<body>
+<body class="lv-ha-barra-cta">
 
 <a class="lv-skip" href="#contenuto">Salta al contenuto</a>
 
@@ -64,7 +64,9 @@
 				<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3 6h18v1.5H3zm0 5.25h18v1.5H3zM3 16.5h18V18H3z"/></svg>
 			</button>
 
-			<div class="wp-block-navigation__responsive-container" id="lv-menu" role="dialog" aria-modal="true" aria-label="Menu principale">
+			<!-- role e aria-modal li mette nav.js all'apertura: scritti qui restavano
+			     attivi anche su desktop, dove il menu non e' una finestra modale. -->
+			<div class="wp-block-navigation__responsive-container" id="lv-menu" aria-label="Menu principale">
 				<div class="wp-block-navigation__responsive-dialog">
 					<button class="wp-block-navigation__responsive-container-close" aria-label="Chiudi il menu">
 						<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.06 12l4.72-4.72-1.06-1.06L12 10.94 7.28 6.22 6.22 7.28 10.94 12l-4.72 4.72 1.06 1.06L12 13.06l4.72 4.72 1.06-1.06z"/></svg>
@@ -289,7 +291,7 @@
 		</div>
 
 		<div class="wp-block-column">
-			<h2 class="lv-footer-head">Dove siamo</h2>
+			<h3 class="lv-footer-head">Dove siamo</h3>
 			<ul class="lv-footer-list">
 				<li>Via XX Settembre, 42<br>47923 Rimini (RN)</li>
 				<li><a href="https://www.google.com/maps/search/?api=1&amp;query=Via+XX+Settembre+42+Rimini" target="_blank" rel="noreferrer noopener">Apri in mappa <span aria-hidden="true">↗</span></a></li>
@@ -297,7 +299,7 @@
 		</div>
 
 		<div class="wp-block-column">
-			<h2 class="lv-footer-head">Orari</h2>
+			<h3 class="lv-footer-head">Orari</h3>
 			<ul class="lv-footer-list">
 				<li>Lunedì – Sabato<br>7:00 – 22:00</li>
 				<li><span class="lv-quiet">Domenica chiuso</span></li>
@@ -305,7 +307,7 @@
 		</div>
 
 		<div class="wp-block-column">
-			<h2 class="lv-footer-head">Contatti</h2>
+			<h3 class="lv-footer-head">Contatti</h3>
 			<ul class="lv-footer-list">
 				<li><a href="tel:+393393599422">339 359 9422</a></li>
 				<li><a href="https://wa.me/393393599422?text=Ciao%2C%20vorrei%20un%27informazione%20su%20" target="_blank" rel="noreferrer noopener">WhatsApp <span aria-hidden="true">↗</span></a></li>
@@ -323,7 +325,7 @@
 </footer>
 
 <!-- ============================== DOCK SOCIAL ============================ -->
-<div class="lv-dock">
+<aside class="lv-dock" aria-label="Social">
 	<ul class="wp-block-social-links lv-dock-links">
 		<li class="wp-social-link">
 			<a href="https://wa.me/393393599422?text=Ciao%2C%20vorrei%20un%27informazione%20su%20" aria-label="Scrivici su WhatsApp" target="_blank" rel="noreferrer noopener">
@@ -336,16 +338,16 @@
 			</a>
 		</li>
 	</ul>
-</div>
+</aside>
 
 <!-- ============================ CTA MOBILE =============================== -->
-<div class="lv-mobile-cta">
+<aside class="lv-mobile-cta" aria-label="Contatti rapidi">
 	<div class="wp-block-buttons">
 		<div class="wp-block-button"><a class="wp-block-button__link" href="tel:+393393599422">Chiama</a></div>
 		<div class="wp-block-button"><a class="wp-block-button__link lv-btn-gold" href="https://wa.me/393393599422?text=Ciao%2C%20vorrei%20un%27informazione%20su%20" target="_blank" rel="noreferrer noopener">WhatsApp</a></div>
 		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link lv-btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Via+XX+Settembre+42+Rimini" target="_blank" rel="noreferrer noopener">Mappa</a></div>
 	</div>
-</div>
+</aside>
 
 <script src="assets/js/nav.js"></script>
 </body>

@@ -33,8 +33,10 @@
 
 /* --- Hero ---------------------------------------------------------------- */
 /* Il cap evita l'hero gigantesco sui monitor molto alti. */
+/* Il max tiene il pavimento di 430px: dove svh non si risolve, l'hero
+   collassava all'altezza del contenuto. */
 .wp-block-cover.lv-hero {
-	min-height: min(82svh, 820px);
+	min-height: max(430px, min(82svh, 820px));
 }
 
 /* --- Bottoni sopra l'hero ------------------------------------------------ */
@@ -280,8 +282,9 @@
 		font-size: 0.9375rem;
 	}
 
-	/* Spazio in fondo alla pagina per non coprire il footer. */
-	body {
+	/* Spazio in fondo alla pagina per non coprire il footer. Solo dove la
+	   barra c'e' davvero: privacy.html ereditava 72px di vuoto per niente. */
+	body.lv-ha-barra-cta {
 		padding-bottom: 4.5rem;
 	}
 

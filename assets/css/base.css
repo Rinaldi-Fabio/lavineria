@@ -134,9 +134,11 @@ a:hover {
 	text-decoration: none;
 }
 
-/* Salta al contenuto: visibile solo quando prende il focus. */
+/* Salta al contenuto: visibile solo quando prende il focus. Fixed, non
+   absolute: premuto a meta' pagina, absolute lo faceva comparire in cima al
+   documento, fuori dallo schermo. */
 .lv-skip {
-	position: absolute;
+	position: fixed;
 	left: 50%;
 	top: 0;
 	transform: translate(-50%, -120%);
@@ -236,6 +238,17 @@ h3 {
 
 .wp-block-cover__background.has-velo-bordeaux-gradient-background {
 	background: var(--wp--preset--gradient--velo-bordeaux);
+}
+
+/* Il velo obliquo e' tarato su un riquadro largo: si assottiglia a destra per
+   lasciar vedere le bottiglie. Su schermo stretto il riquadro e' alto e
+   sottile, quell'estremita' finisce sotto il testo, e il claim scendeva a
+   2.15:1. Qui il velo diventa quasi piatto e non scende mai sotto 0.85, che
+   regge anche contro un pixel bianco della foto. */
+@media (max-width: 781px) {
+	.wp-block-cover__background.has-velo-scuro-gradient-background {
+		background: linear-gradient(180deg, rgba(18, 16, 14, 0.9) 0%, rgba(18, 16, 14, 0.85) 55%, rgba(18, 16, 14, 0.88) 100%);
+	}
 }
 
 .wp-block-cover__image-background {
